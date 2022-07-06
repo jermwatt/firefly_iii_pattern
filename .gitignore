@@ -5,5 +5,6 @@ __pycache__
 ### remove redundant files ###
 .pyc
 .DS_Store
+/apps/firefly_iii_db
 .*  # ignore all hidden files and folders
 !/.gitignore  # explicitly do not ignore .gitignore
