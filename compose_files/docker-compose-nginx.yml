@@ -1,0 +1,20 @@
+version: "3.8"
+      
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    container_name: nginx-proxy
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ${PWD}/proxy.conf:/etc/nginx/proxy.conf
+    environment:
+      DEFAULT_HOST: firefly.local
+    networks:
+     firefly_network:
+      ipv4_address: ${NGINX_IP}
+      
+networks:
+  firefly_network:
+    external: true

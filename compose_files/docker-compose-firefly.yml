@@ -7,27 +7,31 @@ services:
     restart: always
     volumes:
       - ../apps/firefly_iii_app/app:/var/www/html/storage/upload
-    ports:
-      - 80:8080
+    expose:
+      - 8080
     depends_on:
       - firefly_iii_db
     env_file: .env
     networks:
      firefly_network:
       ipv4_address: ${FIREFLY_APP_IP}
+    environment:
+      - VIRTUAL_HOST=firefly.local
 
   firefly_fidi:
     image: fireflyiii/data-importer:latest
     container_name: firefly_fidi_app
     restart: always
     env_file: .fidi.env
-    ports:
-      - 81:8080
+    expose:
+      - 8080
     depends_on:
       - firefly_iii_app
     networks:
      firefly_network:
       ipv4_address: ${FIREFLY_FIDI_IP}
+    environment:
+      - VIRTUAL_HOST=fireflyfidi.local
 
   firefly_iii_db:
     image: mariadb   
